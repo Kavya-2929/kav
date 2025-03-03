@@ -102,19 +102,6 @@ def login_user(user_data: UserLogin):
         data={"sub": user["username"]}, 
         expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     )
- 
-    print(f" Generated Token: {access_token}")
-
-    response = JSONResponse(content={"access_token": access_token, "token_type": "bearer"})
-    response.set_cookie(
-        key="jwt_token",
-        value=access_token,
-        httponly=True,
-        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
-        samesite="Lax",
-        secure=False 
-    )
-    return response
 
     users_collection.update_one(
         {"_id": user["_id"]},
